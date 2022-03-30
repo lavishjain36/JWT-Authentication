@@ -1,12 +1,19 @@
 var bcrypt = require('bcryptjs');
-var saltRound=10;
+var saltRound=1;
 
 
 
 var hashPassword=async (pwd)=>{
     let salt=await bcrypt.genSalt(saltRound);
+    console.log(salt);
     let hash=await bcrypt.hash(pwd,salt);
     return hash;
 }
 
-module.exports={hashPassword}
+
+var hashCompare=async(pwd,hash)=>{
+    let result=await bcrypt.compare(pwd,hash);
+    return result;
+}
+
+module.exports={hashPassword,hashCompare}
